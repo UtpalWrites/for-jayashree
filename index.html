@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Happy Valentine's Day Jayashree!</title>
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Poppins:wght@300;600&display=swap" rel="stylesheet">
+    <style>
+        /* --- VALENTINE THEME STYLES --- */
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, #fff0f5 0%, #ffd1dc 100%);
+            color: #d63384;
+            text-align: center;
+            margin: 0;
+            padding: 0;
+            overflow-x: hidden;
+        }
+
+        /* Floating Hearts Background Animation */
+        .heart-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: -1;
+            overflow: hidden;
+        }
+        .heart-flake {
+            position: absolute;
+            top: -10%;
+            color: #ff6b6b;
+            opacity: 0.6;
+            animation: fall linear infinite;
+        }
+        @keyframes fall {
+            0% { transform: translateY(0) rotate(0deg); }
+            100% { transform: translateY(100vh) rotate(360deg); }
+        }
+
+        header {
+            background-color: #ff4757;
+            color: white;
+            padding: 60px 20px;
+            border-bottom-left-radius: 50% 30px;
+            border-bottom-right-radius: 50% 30px;
+            box-shadow: 0 10px 30px rgba(255, 71, 87, 0.3);
+            position: relative;
+        }
+
+        h1 { 
+            font-family: 'Dancing Script', cursive; 
+            margin: 0; 
+            font-size: 3.5em; 
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+        }
+        p.subtitle { font-size: 1.3em; margin-top: 10px; }
+
+        .container {
+            max-width: 800px;
+            margin: -30px auto 40px; /* Overlap header slightly */
+            padding: 0 20px;
+            position: relative;
+            z-index: 10;
+        }
+
+        /* Cards */
+        .card {
+            background: white;
+            padding: 25px;
+            border-radius: 20px;
+            box-shadow: 0 10px 25px rgba(214, 51, 132, 0.15);
+            margin-bottom: 30px;
+            border: 2px solid #fff0f5;
+        }
+
+        h2 { color: #ff4757; font-family: 'Dancing Script', cursive; font-size: 2.2em; margin-bottom: 15px; }
+
+        /* Timer */
+        #timer {
+            font-size: 1.4em;
+            font-weight: 600;
+            color: #555;
+            background: #fff0f5;
+            padding: 15px;
+            border-radius: 10px;
+        }
+
+        /* Love Button */
+        button#loveBtn {
+            background: linear-gradient(45deg, #ff4757, #ff6b81);
+            color: white;
+            border: none;
+            padding: 15px 40px;
+            font-size: 1.2em;
+            border-radius: 50px;
+            cursor: pointer;
+            box-shadow: 0 5px 15px rgba(255, 71, 87, 0.4);
+            transition: all 0.3s;
+        }
+        button#loveBtn:hover { transform: scale(1.1); box-shadow: 0 8px 20px rgba(255, 71, 87, 0.6); }
+        
+        #messageDisplay {
+            margin-top: 20px;
+            font-size: 1.3em;
+            color: #d63384;
+            font-family: 'Dancing Script', cursive;
+            min-height: 1.5em;
+        }
+
+        /* Gallery Grid */
+        .gallery {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+        }
+        .gallery img {
+            width: 100%;
+            height: 180px;
+            object-fit: cover;
+            border-radius: 15px;
+            border: 3px solid white;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+
+    </style>
+</head>
+<body>
+
+    <div class="heart-bg" id="heartBg"></div>
+
+    <header>
+        <h1>Happy Valentine's Day!</h1>
+        <p class="subtitle">To my love, Jayashree ❤️</p>
+    </header>
+
+    <div class="container">
+        
+        <div class="card">
+            <h2>My Valentine Message</h2>
+            <p style="font-size: 1.1em; line-height: 1.6;">
+                Jayashree, every day since I proposed has been a blessing. Today I want to remind you just how much you mean to me. You are my best friend and my love.
+            </p>
+            <p><strong>- Love, Utpal</strong></p>
+        </div>
+
+        <div class="card">
+            <h2>Why I Love You</h2>
+            <button id="loveBtn" onclick="showLove()">Click for a reason</button>
+            <div id="messageDisplay"></div>
+        </div>
+
+        <div class="card">
+            <h2>Our Beautiful Memories</h2>
+            <div class="gallery">
+                <img src="photo1.jpg" alt="Memory 1">
+                <img src="photo2.jpg" alt="Memory 2">
+                <img src="photo3.jpg" alt="Memory 3">
+                <img src="photo4.jpg" alt="Memory 4">
+            </div>
+        </div>
+
+        <div class="card">
+            <h2>Our Song</h2>
+            <audio controls style="width: 100%;">
+                <source src="song.mp3" type="audio/mpeg">
+            </audio>
+        </div>
+
+        <div class="card">
+            <h2>Together Since July 17, 2025</h2>
+            <div id="timer">Calculating...</div>
+        </div>
+
+    </div>
+
+    <script>
+        /* --- JAVASCRIPT --- */
+
+        // 1. GENERATE FALLING HEARTS
+        function createHearts() {
+            const container = document.getElementById('heartBg');
+            const heartCount = 20; // Number of hearts
+            for (let i = 0; i < heartCount; i++) {
+                const heart = document.createElement('div');
+                heart.classList.add('heart-flake');
+                heart.innerHTML = '❤';
+                heart.style.left = Math.random() * 100 + 'vw';
+                heart.style.fontSize = (Math.random() * 20 + 10) + 'px';
+                heart.style.animationDuration = (Math.random() * 3 + 2) + 's';
+                heart.style.animationDelay = Math.random() * 5 + 's';
+                container.appendChild(heart);
+            }
+        }
+        createHearts();
+
+        // 2. LOVE REASONS
+        const reasons = [
+            "You have the most beautiful smile in Assam! 🌸",
+            "You believe in me and my dreams.",
+            "You make even simple moments magical.",
+            "I love your kindness and your laugh.",
+            "I am the luckiest man to have you."
+        ];
+
+        function showLove() {
+            const randomIndex = Math.floor(Math.random() * reasons.length);
+            document.getElementById("messageDisplay").innerText = reasons[randomIndex];
+        }
+
+        // 3. TIMER UPDATED TO: July 17, 2025
+        // Date(Year, MonthIndex, Day)
+        // Note: Month is 0-indexed (Jan=0, July=6)
+        const startDate = new Date(2025, 6, 17); 
+
+        function updateTimer() {
+            const now = new Date();
+            const diff = now - startDate;
+            
+            const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+            
+            // Calculate hours/minutes for more detail if needed, or just keep days
+            document.getElementById("timer").innerText = `${days} Days of being yours!`;
+        }
+        updateTimer();
+    </script>
+</body>
+</html>
