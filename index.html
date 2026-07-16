@@ -1,0 +1,497 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Happy 1st Anniversary Jayashree! ❤️</title>
+    <!-- Added Dancing Script for the handwritten letter vibe -->
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400&family=Montserrat:wght@300;400;600&family=Dancing+Script:wght@600;700&display=swap" rel="stylesheet">
+    <style>
+        /* --- GLOBAL STYLES --- */
+        :root {
+            --glass-bg: rgba(255, 255, 255, 0.06);
+            --glass-border: rgba(255, 182, 193, 0.2); 
+            --text-main: #ffffff;
+            --text-accent: #ffb6c1; /* Soft romantic blush pink */
+            --gold: #ffd700;
+        }
+
+        body, html {
+            margin: 0;
+            padding: 0;
+            font-family: 'Montserrat', sans-serif;
+            color: var(--text-main);
+            background-color: #050102; 
+            overflow-x: hidden;
+            scroll-behavior: smooth;
+        }
+
+        /* --- ROMANTIC NIGHT SKY BACKGROUND --- */
+        .background {
+            position: fixed;
+            top: 0; left: 0; width: 100vw; height: 100vh;
+            z-index: 1; 
+            background: radial-gradient(circle at center, #2e0814 0%, #170208 50%, #050102 100%);
+        }
+
+        /* --- MAGIC DUST & PETALS --- */
+        .magic-bg {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            pointer-events: none;
+            z-index: 2; 
+            overflow: hidden;
+        }
+        .particle {
+            position: absolute;
+            bottom: -10%;
+            text-shadow: 0 0 20px rgba(255, 182, 193, 0.8);
+            animation: floatUp linear infinite;
+        }
+        @keyframes floatUp {
+            0% { transform: translateY(0) rotate(0deg) scale(0.8); opacity: 0; }
+            20% { opacity: 0.9; }
+            80% { opacity: 0.9; }
+            100% { transform: translateY(-110vh) rotate(360deg) scale(1.2); opacity: 0; }
+        }
+
+        /* --- THE TYPEWRITER REVEAL COVER --- */
+        #welcomeCover {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: #0a0204;
+            z-index: 100;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            transition: opacity 2s ease, transform 2s ease;
+            text-align: center;
+            padding: 20px;
+        }
+        #typewriterText {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 3.5em;
+            color: var(--text-accent);
+            margin: 0 0 40px 0;
+            min-height: 1.2em; /* Prevents button from jumping */
+            font-style: italic;
+        }
+        .tap-btn {
+            padding: 15px 50px;
+            background: linear-gradient(45deg, #d6336c, #ffb6c1);
+            border: none;
+            color: #fff;
+            font-size: 1.3em;
+            font-weight: 600;
+            border-radius: 50px;
+            cursor: pointer;
+            box-shadow: 0 5px 20px rgba(214, 51, 108, 0.4);
+            font-family: 'Montserrat', sans-serif;
+            opacity: 0;
+            transition: opacity 1s ease, transform 0.3s ease;
+        }
+        .tap-btn.visible { opacity: 1; }
+        .tap-btn:hover { transform: scale(1.05); }
+
+        /* --- MAIN CONTENT & GLASSMORPHISM --- */
+        .container {
+            max-width: 850px;
+            margin: 0 auto;
+            padding: 60px 20px;
+            opacity: 0;
+            transform: translateY(40px);
+            transition: all 2s ease;
+            position: relative;
+            z-index: 10; 
+        }
+        .container.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        header { text-align: center; margin-bottom: 50px; }
+        header h1 {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 4.5em;
+            font-weight: 700;
+            margin: 0;
+            background: -webkit-linear-gradient(#fff, #ffb6c1);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-shadow: 0 4px 15px rgba(0,0,0,0.4);
+        }
+        .subtitle {
+            font-family: 'Dancing Script', cursive;
+            font-size: 2.2em;
+            color: #fff;
+            margin-top: -5px;
+        }
+
+        .glass-card {
+            background: var(--glass-bg);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid var(--glass-border);
+            border-radius: 24px;
+            padding: 40px;
+            margin-bottom: 50px;
+            text-align: center;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 1s ease;
+        }
+        .glass-card.show {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .glass-card h2 {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 2.8em;
+            color: var(--text-accent);
+            margin-top: 0;
+            font-weight: 400;
+        }
+
+        /* --- THE HANDWRITTEN LETTER --- */
+        .letter-text {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.4em;
+            line-height: 1.8;
+            color: #eee;
+            text-align: justify;
+            text-align-last: center;
+            margin-bottom: 30px;
+        }
+        .signature {
+            font-family: 'Dancing Script', cursive;
+            font-size: 2.5em;
+            color: var(--text-accent);
+            text-align: right;
+            margin: 0;
+        }
+
+        /* --- LIVE TICKING CLOCK --- */
+        .time-blocks {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-top: 20px;
+        }
+        .time-box {
+            background: rgba(0,0,0,0.4);
+            padding: 20px 15px;
+            border-radius: 16px;
+            min-width: 75px;
+            border: 1px solid rgba(255,182,193,0.15);
+            box-shadow: inset 0 0 15px rgba(0,0,0,0.5);
+        }
+        .time-num { font-size: 2.5em; font-weight: 600; display: block; color: #fff; }
+        .time-label { font-size: 0.85em; text-transform: uppercase; letter-spacing: 2px; color: var(--text-accent); margin-top: 5px; display: block;}
+
+        /* --- POLAROID GALLERY --- */
+        .gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+            gap: 25px;
+            perspective: 1000px;
+            padding: 10px;
+        }
+        .photo-wrapper {
+            position: relative;
+            background: #fff;
+            padding: 10px 10px 40px 10px; /* Creates the Polaroid shape */
+            border-radius: 4px;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.6);
+            transition: transform 0.4s cubic-bezier(0.25, 1, 0.5, 1);
+        }
+        /* Give polaroids a slightly scattered, messy look */
+        .photo-wrapper:nth-child(even) { transform: rotate(3deg); }
+        .photo-wrapper:nth-child(odd) { transform: rotate(-2deg); }
+        .photo-wrapper:nth-child(3n) { transform: rotate(1deg) translateY(5px); }
+        
+        .photo-wrapper:hover {
+            transform: scale(1.1) rotate(0deg) !important; /* Straightens out on hover */
+            z-index: 20;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.8);
+        }
+        .gallery img {
+            width: 100%;
+            aspect-ratio: 1 / 1; 
+            object-fit: cover;
+            border-radius: 2px;
+        }
+        /* Little hand-drawn heart on the bottom of the polaroid */
+        .photo-wrapper::after {
+            content: '♥';
+            position: absolute;
+            bottom: 10px;
+            left: 50%;
+            transform: translateX(-50%);
+            color: #d6336c;
+            font-size: 1.2em;
+            opacity: 0.7;
+        }
+
+        /* --- LOVE BUTTON --- */
+        #loveBtn {
+            background: transparent;
+            color: var(--text-accent);
+            border: 2px solid var(--text-accent);
+            padding: 15px 40px;
+            font-size: 1.2em;
+            font-weight: 600;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        #loveBtn:hover {
+            background: var(--text-accent);
+            color: #111;
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(255, 182, 193, 0.3);
+        }
+        #messageDisplay {
+            margin-top: 30px;
+            font-family: 'Dancing Script', cursive;
+            font-size: 2.2em;
+            min-height: 2em;
+            color: #fff;
+        }
+
+        audio { width: 100%; outline: none; border-radius: 30px; opacity: 0.9; margin-top: 15px;}
+        
+        @media (max-width: 600px) {
+            header h1 { font-size: 3.5em; }
+            #typewriterText { font-size: 2.5em; }
+            .time-blocks { flex-wrap: wrap; }
+            .time-box { min-width: 60px; }
+            .gallery { grid-template-columns: repeat(2, 1fr); gap: 15px;}
+            .glass-card { padding: 30px 20px; }
+            .letter-text { font-size: 1.2em; text-align: left; text-align-last: left; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="background"></div>
+
+    <!-- Magical Dust & Petals Background -->
+    <div class="magic-bg" id="magicBg"></div>
+
+    <!-- The Typewriter Reveal Screen -->
+    <div id="welcomeCover">
+        <h1 id="typewriterText"></h1>
+        <button class="tap-btn" id="enterBtn" onclick="enterSite()">Open My Heart</button>
+    </div>
+
+    <audio id="bgMusic" loop>
+        <source src="song.mp3" type="audio/mpeg">
+    </audio>
+
+    <div class="container" id="mainContent">
+        
+        <header>
+            <h1>365 Days</h1>
+            <p class="subtitle">of being deeply in love with you</p>
+        </header>
+
+        <!-- 0. THE LOVE LETTER (NEW SECTION) -->
+        <div class="glass-card observer-card">
+            <h2 style="font-family: 'Dancing Script', cursive; font-size: 3.5em; margin-bottom: 20px;">My Beautiful Jayashree,</h2>
+            <p class="letter-text">
+                One year ago today, on July 17th, I asked you a question that changed my life forever. Every single day since then has been a dream come true. You are my greatest adventure, my biggest supporter, and my best friend. Thank you for choosing me, for believing in us, and for making my world so incredibly beautiful. 
+            </p>
+            <p class="letter-text">
+                This is just our first milestone. I promise to love you, cherish you, and make you smile for all the years to come.
+            </p>
+            <p class="signature">Forever yours,<br>Utpal</p>
+        </div>
+
+        <!-- 1. LIVE CLOCK -->
+        <div class="glass-card observer-card">
+            <h2>Time Since You Said "Yes"</h2>
+            <div class="time-blocks">
+                <div class="time-box">
+                    <span class="time-num" id="d">00</span>
+                    <span class="time-label">Days</span>
+                </div>
+                <div class="time-box">
+                    <span class="time-num" id="h">00</span>
+                    <span class="time-label">Hours</span>
+                </div>
+                <div class="time-box">
+                    <span class="time-num" id="m">00</span>
+                    <span class="time-label">Mins</span>
+                </div>
+                <div class="time-box">
+                    <span class="time-num" id="s">00</span>
+                    <span class="time-label">Secs</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- 2. LOVE NOTES -->
+        <div class="glass-card observer-card">
+            <h2>Things I Adore About You</h2>
+            <button id="loveBtn" onclick="showLove()">Tap for a memory</button>
+            <div id="messageDisplay"></div>
+        </div>
+
+        <!-- 3. SCATTERED POLAROID GALLERY -->
+        <div class="glass-card observer-card">
+            <h2>Our Beautiful Journey</h2>
+            <div class="gallery">
+                <div class="photo-wrapper"><img src="photo1.jpg" alt="Us"></div>
+                <div class="photo-wrapper"><img src="photo2.jpg" alt="Us"></div>
+                <div class="photo-wrapper"><img src="photo3.jpg" alt="Us"></div>
+                <div class="photo-wrapper"><img src="photo4.jpg" alt="Us"></div>
+                <div class="photo-wrapper"><img src="photo5.jpg" alt="Us"></div>
+                <div class="photo-wrapper"><img src="photo6.jpg" alt="Us"></div>
+                <div class="photo-wrapper"><img src="photo7.jpg" alt="Us"></div>
+                <div class="photo-wrapper"><img src="photo8.jpg" alt="Us"></div>
+            </div>
+        </div>
+
+        <!-- 4. MUSIC CONTROL -->
+        <div class="glass-card observer-card">
+            <h2>Our Melody</h2>
+            <p style="color: #ccc; font-style: italic;">The soundtrack of our first year</p>
+            <audio controls id="visibleAudio">
+                <source src="song.mp3" type="audio/mpeg">
+            </audio>
+        </div>
+
+    </div>
+
+    <script>
+        /* --- 1. MAGIC DUST & PETALS GENERATOR --- */
+        function createMagic() {
+            const container = document.getElementById('magicBg');
+            const particleCount = 40; 
+            const shapes = ['❤', '✨', '🌸']; // Hearts, sparkles, and petals
+            const colors = ['rgba(255, 182, 193, 0.7)', 'rgba(214, 51, 108, 0.6)', 'rgba(255, 215, 0, 0.5)'];
+
+            for (let i = 0; i < particleCount; i++) {
+                const particle = document.createElement('div');
+                particle.classList.add('particle');
+                
+                // Randomize shape and color
+                particle.innerHTML = shapes[Math.floor(Math.random() * shapes.length)];
+                particle.style.color = colors[Math.floor(Math.random() * colors.length)];
+                
+                particle.style.left = Math.random() * 100 + 'vw';
+                particle.style.fontSize = (Math.random() * 20 + 10) + 'px';
+                particle.style.animationDuration = (Math.random() * 8 + 5) + 's'; // Slow, floaty
+                particle.style.animationDelay = '-' + (Math.random() * 8) + 's'; 
+                
+                container.appendChild(particle);
+            }
+        }
+        createMagic();
+
+        /* --- 2. TYPEWRITER EFFECT --- */
+        const textToType = "Happy 1st Anniversary, my love...";
+        let i = 0;
+        function typeWriter() {
+            if (i < textToType.length) {
+                document.getElementById("typewriterText").innerHTML += textToType.charAt(i);
+                i++;
+                // Slight random delay for human typing feel
+                setTimeout(typeWriter, Math.random() * 100 + 50); 
+            } else {
+                // Show button after typing finishes
+                setTimeout(() => {
+                    document.getElementById("enterBtn").classList.add("visible");
+                }, 500);
+            }
+        }
+        // Start typing shortly after page load
+        window.onload = () => { setTimeout(typeWriter, 800); };
+
+        /* --- 3. SITE REVEAL LOGIC --- */
+        function enterSite() {
+            const cover = document.getElementById('welcomeCover');
+            cover.style.opacity = '0';
+            cover.style.transform = 'scale(1.1)';
+            
+            setTimeout(() => {
+                cover.style.display = 'none';
+                document.getElementById('mainContent').classList.add('visible');
+                
+                const visibleMusic = document.getElementById('visibleAudio');
+                visibleMusic.play().catch(e => console.log("Audio autoplay prevented"));
+            }, 1500); // Slower, more romantic fade
+        }
+
+        /* --- 4. LIVE TICKING TIMER --- */
+        // Counting from your exact proposal date: July 17, 2025
+        const startDate = new Date(2025, 6, 17, 0, 0, 0).getTime();
+
+        function updateClock() {
+            const now = new Date().getTime();
+            const distance = now - startDate;
+
+            if (distance > 0) {
+                const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+                const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+                const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+                document.getElementById("d").innerText = days.toString().padStart(2, '0');
+                document.getElementById("h").innerText = hours.toString().padStart(2, '0');
+                document.getElementById("m").innerText = minutes.toString().padStart(2, '0');
+                document.getElementById("s").innerText = seconds.toString().padStart(2, '0');
+            }
+        }
+        setInterval(updateClock, 1000);
+        updateClock();
+
+        /* --- 5. ANNIVERSARY LOVE NOTES --- */
+        const reasons = [
+            "You are the most beautiful queen in Assam.",
+            "Saying 'yes' to me was the greatest gift you could ever give.",
+            "I love how much we've grown together in just one year.",
+            "I fall for you more and more every single day since that moment.",
+            "You make even the simplest days feel incredibly magical.",
+            "I am so incredibly proud to call you mine.",
+            "Your kindness and warmth light up my entire world.",
+            "I still get butterflies every time I think about July 17th.",
+            "You support me through every single challenge we face.",
+            "Thinking about all the years we still have left keeps me going.",
+            "You are not just my love, you are my absolute best friend."
+        ];
+
+        function showLove() {
+            const display = document.getElementById("messageDisplay");
+            display.style.opacity = 0;
+            display.style.transform = "scale(0.95)";
+            
+            setTimeout(() => {
+                const randomIndex = Math.floor(Math.random() * reasons.length);
+                display.innerText = `"${reasons[randomIndex]}"`;
+                
+                display.style.transition = "all 0.6s cubic-bezier(0.25, 1, 0.5, 1)";
+                display.style.opacity = 1;
+                display.style.transform = "scale(1)";
+            }, 300);
+        }
+
+        /* --- 6. SCROLL REVEAL ANIMATIONS --- */
+        const observerOptions = { threshold: 0.1 };
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('show');
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.observer-card').forEach(card => {
+            observer.observe(card);
+        });
+    </script>
+</body>
+</html>
